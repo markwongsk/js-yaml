@@ -7,7 +7,7 @@ REMOTE_NAME ?= origin
 REMOTE_REPO ?= $(shell git config --get remote.${REMOTE_NAME}.url)
 
 CURR_HEAD   := $(firstword $(shell git show-ref --hash HEAD | cut -b -6) master)
-GITHUB_PROJ := https://github.com/markwongsk/js-yaml
+GITHUB_PROJ := https://github.com/$(shell node -e 'process.stdout.write(require("./package.json").repository)')
 
 
 help:
