@@ -1,5 +1,3 @@
-# Valid notation. (YAML 1.2)
-#
 valid_true:
   - true
   - True
@@ -10,8 +8,6 @@ valid_false:
   - False
   - FALSE
 
-# Deprecated notation. (YAML 1.0/1.1)
-#
 deprecated_true:
   - y
   - Y

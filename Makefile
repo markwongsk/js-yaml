@@ -9,7 +9,7 @@ REMOTE_NAME ?= origin
 REMOTE_REPO ?= $(shell git config --get remote.${REMOTE_NAME}.url)
 
 CURR_HEAD   := $(firstword $(shell git show-ref --hash HEAD | cut -b -6) master)
-GITHUB_PROJ := https://github.com/nodeca/${NPM_PACKAGE}
+GITHUB_PROJ := https://github.com/markwongsk/js-yaml
 
 
 help:
@@ -24,7 +24,7 @@ help:
 
 
 lint:
-	eslint --reset .
+	node node_modules/eslint/bin/eslint.js --reset .
 
 
 test: lint
