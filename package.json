@@ -1,6 +1,6 @@
 {
   "name": "js-yaml-disallow-comments",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "YAML 1.2 parser and serializer that disallows comments",
   "keywords": [
     "yaml",
