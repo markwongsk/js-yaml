@@ -1,4 +1,4 @@
--n /* js-yaml-disallow-comments 3.4.2 https://github.com/markwongsk/js-yaml */
+-n /* js-yaml-disallow-comments 3.4.4 https://github.com/markwongsk/js-yaml */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.jsyaml = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -1124,11 +1124,11 @@ for (var i = 0; i < 256; i++) {
 function State(input, options) {
   this.input = input;
 
-  this.filename        = options['filename']        || null;
-  this.schema          = options['schema']          || DEFAULT_FULL_SCHEMA;
-  this.onWarning       = options['onWarning']       || null;
-  this.legacy          = options['legacy']          || false;
-  this.commentsAllowed = options['commentsAllowed'] || false;
+  this.filename         = options['filename']         || null;
+  this.schema           = options['schema']           || DEFAULT_FULL_SCHEMA;
+  this.onWarning        = options['onWarning']        || null;
+  this.legacy           = options['legacy']           || false;
+  this.disallowComments = options['disallowComments'] || false;
 
   this.implicitTypes = this.schema.compiledImplicit;
   this.typeMap       = this.schema.compiledTypeMap;
@@ -1328,12 +1328,12 @@ function skipSeparationSpace(state, allowComments, checkIndent) {
     }
 
     if (allowComments && 0x23/* # */ === ch) {
-      if (state.commentsAllowed) {
+      if (state.disallowComments) {
+        throwError(state, 'comments are disallowed because they are not persisted in json');
+      } else {
         do {
           ch = state.input.charCodeAt(++state.position);
         } while (ch !== 0x0A/* LF */ && ch !== 0x0D/* CR */ && 0 !== ch);
-      } else {
-        throwError(state, 'comments are disallowed because they are not persisted in json');
       }
     }
 
